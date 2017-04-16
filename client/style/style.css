@@ -1,0 +1,9 @@
+.my-container {margin-top:20px;}
+img.header-img {width:120% !important; margin-left:-10%; padding:0px;}
+.navbar-nav.menu {width:120%; margin-left:-10%; padding:0; display:table;}
+.navbar-nav.menu li {display: inline-block; display:table-cell; text-align: center; text-transform: uppercase; text-decoration: none; height: 50px; line-height: 50px; background-color:black; color:white;}
+.navbar-nav.menu li a {color:white; text-decoration: none; display: block; width: 100%;}
+.navbar-nav.menu li:hover {background-color:#4286f4;}
+div.greetings {font-weight:bold !important; margin-top:15px; font-size:20px;}
+.addRecipeBtn {margin-top:20px;}
+.btn-primary-spacing {margin-top:20px; margin-right:5px;}
