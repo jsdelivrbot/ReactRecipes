@@ -7,3 +7,5 @@ img.header-img {width:120% !important; margin-left:-10%; padding:0px;}
 div.greetings {font-weight:bold !important; margin-top:15px; font-size:20px;}
 .addRecipeBtn {margin-top:20px;}
 .btn-primary-spacing {margin-top:20px; margin-right:5px;}
+
+#footer {width:120%; height:50px; margin-left:-10%; background-color:black; padding:30px; color:white; margin-top:50px;}

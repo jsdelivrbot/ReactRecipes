@@ -97,7 +97,9 @@ router.get('/recipes/:id', function(req, res, next){
 
 
  router.put('/recipes/update/:id',function(req,res,next){
-   Recipe.findByIdAndUpdate(req.params.id,req.body).then(function(recipe){
+   console.log("CIAOOOOOOOOOOOO: "+req.params.id);
+   console.log("WOOOOOO: "+JSON.stringify(req.body));
+   Recipe.findByIdAndUpdate(req.params.id, req.body).then(function(recipe){
      res.send(recipe);
    });
  });

@@ -3,6 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import * as actions from '../actions';
+import {browserHistory} from 'react-router';
 
 const renderInput = field => {
     const { input, type } = field;
@@ -21,6 +22,7 @@ class NewRecipe extends Component {
 
   handleFormSubmit({ chef, name, description }) {
       this.props.createRecipe(this.props.signedInUserInfo.username, name, description);
+      browserHistory.push('/yourRecipes');
   }
 
   render(){
@@ -64,6 +66,7 @@ function mapStateToProps(state) {
 
 NewRecipe = connect(mapStateToProps, actions)(NewRecipe);
 NewRecipe = reduxForm({
- form: 'NewRecipe'
+ form: 'NewRecipe',
+ validate
 })(NewRecipe);
 export default NewRecipe;

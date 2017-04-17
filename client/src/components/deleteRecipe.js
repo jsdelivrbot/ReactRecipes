@@ -1,22 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { deleteRecipe } from '../actions/index';
 
 class DeleteRecipe extends Component {
 
   constructor(props) {
    super(props);
-   this.state = {myRecipes:[]};
   }
-  
+
   static contextTypes = {
 		router:PropTypes.object
 	};
 
   componentWillMount() {
-    this.props.deleteRecipe(this.props.params.id).then(() => {
-				this.context.router.push('/yourRecipes');
-		});
+    this.props.deleteRecipe(this.props.params.id);
+    browserHistory.push('/yourRecipes');
+  }
+
+  render() {
+    return(
+      <div></div>
+    );
   }
 }
 
@@ -24,4 +28,4 @@ function mapStateToProps(state){
   return state;
 }
 
-export default connect(mapStateToProps, actions)(DeleteRecipe);
+export default connect(mapStateToProps, {deleteRecipe})(DeleteRecipe);

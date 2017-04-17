@@ -10,21 +10,26 @@ class RecipesList extends Component {
 	};
 
   constructor(props) {
-   super(props);
-   this.state = {myRecipes:[]};
+    super(props);
+    this.state = { myRecipes:[] };
   }
 
   componentWillMount(){
+    var self = this;
+
     if (this.props.authenticated){
-      this.props.fetchMyRecipes(this.props.signedInUserInfo.username);
+      this.props.fetchMyRecipes(this.props.signedInUserInfo.username).then(function(){
+        self.setState({ myRecipes: self.props.myRecipes});
+      });
     }
     else {
       this.context.router.push('/signin');
     }
   }
 
+
   renderRecipes(){
-    if (this.props.myRecipes.data){
+    if ((this.props.myRecipes) && (this.props.myRecipes.data)){   // ordine delle condizioni importante!
       return this.props.myRecipes.data.map(function(recipe){
           return (
               <li className="list-group-item" key={recipe._id}>

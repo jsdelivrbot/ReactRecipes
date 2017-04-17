@@ -9,6 +9,7 @@ export default class App extends Component {
         <div className="my-container">
           {this.props.children}
         </div>
+        <div id="footer">Copyright - Company</div>
       </div>
     );
   }

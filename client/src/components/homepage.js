@@ -7,7 +7,7 @@ class Homepage extends Component {
 	render() {
     return (
       <div>
-				sdfnkfsndlnerlsef ksdfirtnsdfvòmdklsfdmk
+
       </div>
     );
   }

@@ -56,8 +56,8 @@ export function fetchOthersRecipes(chef){
 
 
 
-export function updateRecipe(recipe){
-  const request = axios.put('http://localhost:3001/recipes/update/'+recipe.id);
+export function updateRecipe(id, chef, name, description){
+  const request = axios.put('http://localhost:3001/recipes/update/'+id, {chef, name, description });
 	return {
 		type: UPDATE_RECIPE,
 		payload: request

@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import {updateRecipe} from '../actions/index';
 import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 
 class UpdateRecipe extends Component {
 
@@ -10,12 +12,45 @@ class UpdateRecipe extends Component {
 		router:PropTypes.object
 	};
 
+
+	constructor(props) {
+    super(props);
+		this.state = { currentRecipe:[], recipename:'', recipedescription:'' };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+	componentDidMount(){
+		var recipesNumber = Object.keys(this.props.myRecipes.data).length;
+		for (let i = 0; i < recipesNumber; i++){
+			if (this.props.params.id === this.props.myRecipes.data[i]._id){
+				this.setState({currentRecipe: this.props.myRecipes.data[i]});
+			}
+		}
+	}
+
+
+	handleInputChange(event) {
+    const target = event.target;
+		const value = target.value;
+    const name = target.name;
+		if (name === "recipename"){
+    	this.setState({recipename: value});
+		}
+		else if (name === "recipedescription"){
+			this.setState({recipedescription: value});
+		}
+  }
+
+
 	onSubmit(props){
-		this.props.updateRecipe(props).then(() => {
-			// recipe has been updated, navigate the user to the index
-			// We navigate by calling this.context.router.push with the new path to navigate to.
-			this.context.router.push('/yourRecipes');
-		});
+		updateRecipe(
+				this.state.currentRecipe._id,
+				this.state.currentRecipe.chef,
+				this.state.recipename,
+				this.state.recipedescription
+			);
+				browserHistory.push('/yourRecipes');
 	}
 
 	render(){
@@ -28,11 +63,23 @@ class UpdateRecipe extends Component {
 				<h3>Update recipe</h3>
 				<div>
 					<label>Name</label>
-					<input type="text" className="form-control" {...name} />
+					<input
+							type="text"
+							key={this.state.currentRecipe.name}
+							name="recipename"
+							defaultValue={this.state.currentRecipe.name}
+							onChange={this.handleInputChange}
+							className="form-control" {...name} />
 				</div>
 				<div>
 					<label>Description</label>
-					<input type="text" className="form-control" {...description} />
+					<input
+							type="text"
+							key={this.state.currentRecipe.description}
+							name="recipedescription"
+							defaultValue={this.state.currentRecipe.description}
+							onChange={this.handleInputChange}
+							className="form-control" {...description} />
 				</div>
 				<button type="submit" className="btn btn-primary btn-primary-spacing">Submit</button>
 				<Link to="/yourRecipes" className="btn btn-danger btn-primary-spacing">Cancel</Link>
@@ -56,6 +103,13 @@ function validate(values){
 // connect and reduxForm are equivalent
 // connect first argument is MapStateToProps, 2nd argument is mapDispatchToProps
 // reduxForm 1st argument is form config, 2nd argument is mapStateToProps, 3rd is mapDispatchToProps
+function mapStateToProps(state){
+	return {
+  	myRecipes: state.recipeReducer.myRecipes
+	};
+}
+
+UpdateRecipe = connect(mapStateToProps, updateRecipe)(UpdateRecipe);
 
 export default reduxForm({
 	form: 'NewRecipeForm', // the name could be whatever you want
