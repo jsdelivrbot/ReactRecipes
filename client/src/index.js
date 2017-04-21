@@ -9,8 +9,17 @@ import ReduxThunk from 'redux-thunk';
 // react-router how to interpret changes to the url
 import reducers from './reducers';
 import routes from './routes';
+import { AUTH_USER } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const token = localStorage.getItem('token');
+// If we have a token, consider the user to be signed in
+if (token) {
+  // we need to update application state
+  store.dispatch({ type: AUTH_USER });
+}
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

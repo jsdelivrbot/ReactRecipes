@@ -9,3 +9,16 @@ div.greetings {font-weight:bold !important; margin-top:15px; font-size:20px;}
 .btn-primary-spacing {margin-top:20px; margin-right:5px;}
 
 #footer {width:120%; height:50px; margin-left:-10%; background-color:black; padding:30px; color:white; margin-top:50px;}
+.bookTitle {padding: 10px 0px; font-weight:bold; float: left;}
+.bookPlot {padding-top: 10px;}
+.bookImage {float: right;}
+.bookChefAndPages {padding: 10px 0px; float: right; font-style: italic; font-size: 13px;}
+.emptyrow {background-color: white; height: 40px;}
+#books-table td img {display:block; margin:auto 0;}
+ul.nav.navbar-nav.menu li {width:20%;}
+
+#cartReview {width: 100%; margin-top: 50px;}
+#cartReview td {text-align: center; padding: 20px 0px;}
+
+#tableReviewHeader {font-weight: bold;}
+#tableReviewHeader td {padding: 10px 0px;}

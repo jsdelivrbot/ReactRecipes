@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var Recipe = require('./model/recipe');
 var User = require('./model/user');
+var Book = require('./model/book');
+var Cart = require('./model/cart');
 const morgan = require('morgan');
 const cors = require('cors');
 const http = require('http');
@@ -53,6 +55,9 @@ router.post('/users/signin', function(req,res,next) {
 
 router.post('/users/signup', function(req,res,next) {
   User.create(req.body).then(function(newUser){
+    Cart.create({userID: newUser._id, items: []}).then(function(newCart){
+      console.log("creato il carrello!");
+    }).catch(next);
     res.send(newUser);
   }).catch(next);
 });
@@ -84,6 +89,7 @@ router.get('/recipes/:id', function(req, res, next){
 
   router.get('/your-recipes/:chef', function(req, res, next) {
      Recipe.find({chef:req.params.chef}).then(function(recipeList){
+        console.log(recipeList);
         res.send(recipeList);
       }).catch(next);
    });
@@ -97,13 +103,45 @@ router.get('/recipes/:id', function(req, res, next){
 
 
  router.put('/recipes/update/:id',function(req,res,next){
-   console.log("CIAOOOOOOOOOOOO: "+req.params.id);
-   console.log("WOOOOOO: "+JSON.stringify(req.body));
    Recipe.findByIdAndUpdate(req.params.id, req.body).then(function(recipe){
      res.send(recipe);
    });
  });
 
+
+ router.get('/books', function(req, res, next) {
+    Book.find().then(function(bookList){
+       res.send(bookList);
+     }).catch(next);
+  });
+
+  router.get('/specific-book/:id', function(req, res, next){
+     Book.findById({_id:req.params.id}).then(function(book){
+        res.send(book);
+      }).catch(next);
+   });
+
+
+  router.get('/cart/:userID', function(req, res, next) {
+     Cart.find({userID: req.params.userID}).then(function(cart){
+       console.log(cart[0].items);
+        res.send(cart[0].items);
+      }).catch(next);
+   });
+
+   router.post('/add-to-cart', function(req, res, next) {
+      Cart.findOneAndUpdate(
+          { userID: req.body.userID },
+          { $push: { items: { itemID: req.body.itemId, quantity: 1 } } },
+          { new: true }
+      )
+      .exec()
+      .then(function(userCart) {
+          console.log("TEST: "+ JSON.stringify(userCart));
+          res.send(userCart);
+      })
+      .catch(next);
+    });
 
 
 app.listen(port, function() {

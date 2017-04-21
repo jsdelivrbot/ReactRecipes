@@ -29,6 +29,7 @@ class RecipesList extends Component {
 
 
   renderRecipes(){
+    console.log(JSON.stringify(this.props.myRecipes));
     if ((this.props.myRecipes) && (this.props.myRecipes.data)){   // ordine delle condizioni importante!
       return this.props.myRecipes.data.map(function(recipe){
           return (

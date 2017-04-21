@@ -7,3 +7,7 @@ export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
 export const FETCH_MESSAGE = 'fetch_message';
+export const FETCH_BOOK = 'fetch_book';
+export const FETCH_BOOKS = 'fetch_books';
+export const FETCH_WISHLIST = 'fetch_wishlist';
+export const ADD_TO_CART = 'add_to_cart';

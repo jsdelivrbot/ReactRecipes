@@ -5,19 +5,24 @@ import { Link } from 'react-router';
 class Navigation extends Component {
   renderLinks() {
     if (this.props.authenticated) {
-      // show a link to sign out
-      return <li>
-        <Link to="/signout">Sign Out</Link>
-      </li>
-    } else {
-      // show a link to sign in or sign up
       return [
-        <li>
-          <Link to="/signin">Sign In</Link>
-        </li>,
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
+        <ul className="nav navbar-nav menu">
+            <li><Link to={"/yourRecipes"}>My Recipes</Link></li>
+            <li><Link to={"/usersRecipes"}>Users Recipes</Link></li>
+            <li><Link to={"/books"}>Books</Link></li>
+            <li><Link to={"/signout"}>Sign Out</Link></li>
+            <li><Link to={"/cart"}>Cart</Link></li>
+        </ul>
+      ];
+    } else {
+      return [
+        <ul className="nav navbar-nav menu">
+            <li><Link to={"/yourRecipes"}>My Recipes</Link></li>
+            <li><Link to={"/usersRecipes"}>Users Recipes</Link></li>
+            <li><Link to={"/books"}>Books</Link></li>
+            <li><Link to={"/signin"}>Sign In</Link></li>
+            <li><Link to={"/signup"}>Sign Up</Link></li>
+        </ul>
       ];
     }
   }
@@ -39,13 +44,7 @@ class Navigation extends Component {
               <img src={'http://granatos.com/media/easybanner/recipe-header-image.png'} alt="Discover thousands recipes" className="header-img" />
             </Link>
             <nav>
-                    <div className="navbar-header">
-                        <ul className="nav navbar-nav menu">
-                            <li><Link to={"/yourRecipes"}>My Recipes</Link></li>
-                            <li><Link to={"/usersRecipes"}>Users Recipes</Link></li>
-                            {this.renderLinks()}
-                        </ul>
-                    </div>
+            {this.renderLinks()}
             </nav>
             <nav>
               <div>{this.renderGreetings()}</div>
